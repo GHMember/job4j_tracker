@@ -28,7 +28,7 @@ public class Error {
         error404.showInfo();
         Error answer200 = new Error(false, 200, "Запрос выполнен успешно");
         answer200.showInfo();
-
+        Error error500 = new Error(true, 500, "Ошибка сервера");
+        error500.showInfo();
     }
-
 }
