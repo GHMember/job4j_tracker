@@ -17,16 +17,20 @@ public class Tracker {
         return Arrays.copyOf(items, size);
     }
 
-    public Item findById(int id) {
-        Item rsl = null;
+    private int indexOf(int id) {
+        int rsl = -1;
         for (int index = 0; index < size; index++) {
-            Item item = items[index];
-            if (item.getId() == id) {
-                rsl = item;
+            if (items[index].getId() == id) {
+                rsl = index;
                 break;
             }
         }
         return rsl;
+    }
+
+    public Item findById(int id) {
+        int index = indexOf(id);
+        return index != -1 ? items[index] : null;
     }
 
     public Item[] findByName(String key) {
@@ -39,26 +43,16 @@ public class Tracker {
             }
         }
        return Arrays.copyOf(rsl, count);
-
     }
 
-    public static void main(String[] args) {
-        Tracker tracker = new Tracker();
-        Item first = new Item("First");
-        Item second = new Item("Second");
-        tracker.add(first);
-        tracker.add(second);
-        tracker.add(new Item("First"));
-        tracker.add(new Item("Second"));
-        tracker.add(new Item("First"));
-        Item[] rsl = tracker.findByName(first.getName());
-        for (Item r : rsl) {
-            System.out.println(r.getName());
+    public boolean replace(int id, Item item) {
+        boolean replaceCompleted = false;
+        int index = indexOf(id);
+        if (index != -1) {
+            items[index] = item;
+            items[index].setId(id);
+            replaceCompleted = true;
         }
-        System.out.println();
-        rsl = tracker.findAll();
-        for (Item r : rsl) {
-            System.out.println(r.getName());
-        }
+        return replaceCompleted;
     }
 }
