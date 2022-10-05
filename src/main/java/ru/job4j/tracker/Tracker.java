@@ -49,8 +49,8 @@ public class Tracker {
         boolean replaceCompleted = false;
         int index = indexOf(id);
         if (index != -1) {
+            item.setId(id);
             items[index] = item;
-            items[index].setId(id);
             replaceCompleted = true;
         }
         return replaceCompleted;
