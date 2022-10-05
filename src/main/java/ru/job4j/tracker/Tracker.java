@@ -60,9 +60,7 @@ public class Tracker {
         boolean deleteCompleted = false;
         int index = indexOf(id);
         if (index != -1) {
-            int copyFrom = index + 1;
-            int length = size - index;
-            System.arraycopy(items, copyFrom, items, index, length);
+            System.arraycopy(items, index + 1, items, index, size - index - 1);
             items[size - 1] = null;
             size--;
             deleteCompleted = true;
