@@ -12,14 +12,13 @@ public class Matches {
             System.out.println(player + " введите число от 1 до 3:");
             int matches = Integer.parseInt(input.nextLine());
             boolean validator = matches > 0 &&  matches < 4 && matches <= count;
-            while (!validator) {
+            if (!validator) {
                 System.out.println("Вы ввели не верное число!");
-                matches = Integer.parseInt(input.nextLine());
-                validator = matches > 0 &&  matches < 4 && matches <= count;
+            } else {
+                count -= matches;
+                turn = !turn;
+                System.out.println("Осталось спичек: " + count);
             }
-            count -= matches;
-            turn = !turn;
-            System.out.println("Осталось спичек: " + count);
         }
         if (!turn) {
             System.out.println("Выиграл первый игрок");
