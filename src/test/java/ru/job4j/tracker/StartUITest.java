@@ -104,7 +104,7 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         Item one = tracker.add(new Item("test1"));
         Input in = new StubInput(
-                new String[] {"0", String.valueOf(one.getId()), "1"}
+                new String[] {"0", "1"}
         );
         UserAction[] actions = new UserAction[]{
                 new ShowAction(out),
@@ -117,7 +117,7 @@ public class StartUITest {
                         + "0. Show all Items" + ln
                         + "1. Exiting the program" + ln
                         + "=== Show all items ===" + ln
-                        + "Item{id=1, name='test1'}" + ln
+                        + one + ln
                         + "Menu:" + ln
                         + "0. Show all Items" + ln
                         + "1. Exiting the program" + ln
@@ -144,7 +144,7 @@ public class StartUITest {
                         + "0. Find Item by id" + ln
                         + "1. Exiting the program" + ln
                         + "=== Find item by id ===" + ln
-                        + "Item{id=1, name='test1'}" + ln
+                        + one + ln
                         + "Menu:" + ln
                         + "0. Find Item by id" + ln
                         + "1. Exiting the program" + ln
@@ -171,7 +171,7 @@ public class StartUITest {
                         + "0. Find Item by name" + ln
                         + "1. Exiting the program" + ln
                         + "=== Find items by name ===" + ln
-                        + "Item{id=1, name='test1'}" + ln
+                        + one + ln
                         + "Menu:" + ln
                         + "0. Find Item by name" + ln
                         + "1. Exiting the program" + ln

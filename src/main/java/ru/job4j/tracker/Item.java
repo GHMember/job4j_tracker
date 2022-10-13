@@ -45,7 +45,7 @@ public class Item {
         return "Item{"
                 + "id=" + id
                 + ", name='" + name + '\''
-                //+ ", created=" + created.format(FORMATTER)
+                + ", created=" + created.format(FORMATTER)
                 + '}';
     }
 
