@@ -8,55 +8,83 @@ class PasswordValidatorTest {
     @Test
     public void whenValidPassword() {
         String pass = "Test123!";
-        assertThat(PasswordValidator.validate(pass)).isEqualTo("Password is valid");
+        assertThat(PasswordValidator.validate(pass)).isEqualTo("Test123!");
     }
 
     @Test
     public void whenPasswordHasLessThenEightCharacters() {
-        String pass = "Test12!";
-        assertThat(PasswordValidator.validate(pass))
-                .isEqualTo("Password must contain from 8 to 32 characters");
+        try {
+            PasswordValidator.validate("Test1!");
+        } catch (Exception e) {
+            assertThat(e)
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessage("Password must contain from 8 to 32 characters");
+        }
     }
 
     @Test
     public void whenPasswordHasMoreThenThirtyTwoCharacters() {
-        String pass = "Test1!Test1!Test1!Test1!Test1!Test1!";
-        assertThat(PasswordValidator.validate(pass))
-                .isEqualTo("Password must contain from 8 to 32 characters");
+        try {
+            PasswordValidator.validate("Test1!Test1!Test1!Test1!Test1!Test1!");
+        } catch (Exception e) {
+            assertThat(e)
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessage("Password must contain from 8 to 32 characters");
+        }
     }
 
     @Test
     public void whenPasswordHasNotUpperCaseCharacter() {
-        String pass = "test123!";
-        assertThat(PasswordValidator.validate(pass))
-                .isEqualTo("Password must contain one uppercase letter the minimum");
+        try {
+            PasswordValidator.validate("test123!");
+        } catch (Exception e) {
+            assertThat(e)
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessage("Password must contain one uppercase letter the minimum");
+        }
     }
 
     @Test
     public void whenPasswordHasNotLowerCaseCharacter() {
-        String pass = "TEST123!";
-        assertThat(PasswordValidator.validate(pass))
-                .isEqualTo("Password must contain one lowercase letter the minimum");
+        try {
+            PasswordValidator.validate("TEST123!");
+        } catch (Exception e) {
+            assertThat(e)
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessage("Password must contain one lowercase letter the minimum");
+        }
     }
 
     @Test
     public void whenPasswordHasNotDigital() {
-        String pass = "Testqwe!";
-        assertThat(PasswordValidator.validate(pass)).isEqualTo("Password must contain one digit the minimum");
+        try {
+            PasswordValidator.validate("Testqwe!");
+        } catch (Exception e) {
+            assertThat(e)
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessage("Password must contain one digit the minimum");
+        }
     }
 
     @Test
     public void whenPasswordHasNotSpecialCharacter() {
-        String pass = "Test1234";
-        assertThat(PasswordValidator.validate(pass))
-                .isEqualTo("Password must contain one special character the minimum");
+        try {
+            PasswordValidator.validate("Test1234");
+        } catch (Exception e) {
+            assertThat(e)
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessage("Password must contain one special character the minimum");
+        }
     }
 
     @Test
     public void whenPasswordHasContainWrongSubstring() {
-        String pass = "password";
-
-        assertThat(PasswordValidator.validate(pass))
-                .isEqualTo("Password mustn't contain substring like \"password\"");
+        try {
+            PasswordValidator.validate("MyPasWorD1!");
+        } catch (Exception e) {
+            assertThat(e)
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessage("Password mustn't contain substring like \"password\"");
+        }
     }
 }
