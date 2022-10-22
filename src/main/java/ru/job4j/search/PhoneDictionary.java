@@ -1,7 +1,6 @@
 package ru.job4j.search;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class PhoneDictionary {
     private ArrayList<Person> persons = new ArrayList<>();
@@ -13,10 +12,8 @@ public class PhoneDictionary {
     public ArrayList<Person> find(String key) {
         ArrayList<Person> result = new ArrayList<>();
         for (Person pers : persons) {
-            ArrayList<String> personData = new ArrayList<>(
-                    Arrays.asList(pers.getName(), pers.getSurname(), pers.getPhone(), pers.getAddress())
-            );
-            if (personData.contains(key)) {
+            if (pers.getName().equals(key) || pers.getSurname().equals(key) || pers.getPhone().equals(key)
+                    || pers.getAddress().equals(key)) {
                 result.add(pers);
             }
         }
