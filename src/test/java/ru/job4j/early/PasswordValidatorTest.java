@@ -3,7 +3,7 @@ package ru.job4j.early;
 import org.junit.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class PasswordValidatorTest {
+public class PasswordValidatorTest {
 
     @Test
     public void whenValidPassword() {
