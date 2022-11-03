@@ -31,16 +31,6 @@ public final class SingleTracker {
     public List<Item> findAll() {
         return tracker.findAll();
     }
-    /*
-    public Item[] findByName(String name) {
-        return tracker.findByName(name);
-    }
-
-
-    public Item[] findAll() {
-        return tracker.findAll();
-    }
-    */
 
     public boolean replace(int id, Item item) {
         return tracker.replace(id, item);
