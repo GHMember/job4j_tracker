@@ -13,18 +13,14 @@ public class BankService {
     }
 
     public boolean deleteUser(String passport) {
-        boolean deleted = false;
-        if (users.containsKey(findByPassport(passport))) {
-            users.remove(findByPassport(passport));
-            deleted = true;
-        }
-        return deleted;
+        return users.remove(new User(passport, null)) != null;
     }
 
     public void addAccount(String passport, Account account) {
         User user = findByPassport(passport);
-        if (user != null && !getAccounts(user).contains(account)) {
-            getAccounts(user).add(account);
+        List<Account> accounts = getAccounts(user);
+        if (user != null && !accounts.contains(account)) {
+            accounts.add(account);
         }
     }
 
@@ -33,6 +29,7 @@ public class BankService {
         for (User user : users.keySet()) {
             if (user.getPassport().equals(passport)) {
                 rsl = user;
+                break;
             }
         }
         return rsl;
@@ -55,13 +52,10 @@ public class BankService {
     public boolean transferMoney(String srcPassport, String srcRequisite,
                                  String destPassport, String destRequisite, double amount) {
         boolean rsl = false;
-        if (!(findByRequisite(srcPassport, srcRequisite) == null
-                || findByRequisite(destPassport, destRequisite) == null
-                || findByRequisite(srcPassport, srcRequisite).getBalance() < amount)) {
-
-            findByRequisite(destPassport, destRequisite).setBalance(
-                    findByRequisite(destPassport, destRequisite).getBalance() + amount
-            );
+        Account srcAccount = findByRequisite(srcPassport, srcRequisite);
+        Account destAccount = findByRequisite(destPassport, destRequisite);
+        if (srcAccount != null && destAccount != null && srcAccount.getBalance() >= amount) {
+            destAccount.setBalance(destAccount.getBalance() + amount);
             rsl = true;
         }
         return rsl;
