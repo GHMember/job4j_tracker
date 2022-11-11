@@ -1,6 +1,11 @@
-package map;
+package ru.job4j.map;
 
 import org.junit.jupiter.api.Test;
+import ru.job4j.map.AnalyzeByMap;
+import ru.job4j.map.Label;
+import ru.job4j.map.Pupil;
+import ru.job4j.map.Subject;
+
 import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.offset;

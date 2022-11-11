@@ -1,4 +1,4 @@
-package map;
+package ru.job4j.map;
 
 import java.util.*;
 
