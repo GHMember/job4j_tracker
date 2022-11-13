@@ -23,7 +23,7 @@ public class ItemTest {
         );
         items1.sort(new ItemAscByName());
         items2.sort(new ItemAscByName());
-        assertThat(items1.toString()).isEqualTo(items2.toString());
+        assertThat(items1).isEqualTo(items2);
     }
 
     @Test
@@ -40,6 +40,6 @@ public class ItemTest {
         );
         items1.sort(new ItemDescByName());
         items2.sort(new ItemDescByName());
-        assertThat(items1.toString()).isEqualTo(items2.toString());
+        assertThat(items1).isEqualTo(items2);
     }
 }
