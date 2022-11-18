@@ -25,9 +25,6 @@ public class FunctionalInterfaces {
                 System.out.println("key: " + i + " value: " + map.get(i));
             }
         }
-        /*
-            Заменить создание ArrayList из значений Map на Supplier, объявлен ниже, требуется его реализовать.
-         */
         Supplier<List<String>> sup = () -> new ArrayList<>(map.values());
         List<String> strings = sup.get();
 
