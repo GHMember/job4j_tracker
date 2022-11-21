@@ -9,7 +9,7 @@ import java.util.function.*;
 public class FunctionalInterfaces {
     public static void main(String[] args) {
         Map<Integer, String> map = new HashMap<>();
-        BiConsumer<Integer, String> biCon = (x, y) -> map.put(x, y);
+        BiConsumer<Integer, String> biCon = map::put;
 
         biCon.accept(1, "one");
         biCon.accept(2, "two");
@@ -28,12 +28,10 @@ public class FunctionalInterfaces {
         Supplier<List<String>> sup = () -> new ArrayList<>(map.values());
         List<String> strings = sup.get();
 
-        Consumer<String> con = (x) -> System.out.println(x);
-        Function<String, String> func = (x) -> x.toUpperCase();
+        Consumer<String> con = System.out::println;
+        Function<String, String> func = String::toUpperCase;
         for (String s : strings) {
-            con.accept(s);
-            func.apply(s);
-            System.out.println(s.toUpperCase());
+            con.accept(func.apply(s));
         }
     }
 }
