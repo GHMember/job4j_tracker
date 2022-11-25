@@ -1,4 +1,4 @@
-package ru.job4j.encapsulation;
+package ru.job4j.stream.encapsulation;
 
 public class Config {
     private String name;
