@@ -9,7 +9,7 @@ public class AnalyzeByMap {
         for (Pupil pupil : pupils) {
             for (Subject subject : pupil.subjects()) {
                 count++;
-                score += subject.score();
+                score += subject.getScore();
             }
         }
         return score / count;
@@ -22,7 +22,7 @@ public class AnalyzeByMap {
             int count = 0;
             for (Subject subject : pupil.subjects()) {
                 count++;
-                score += subject.score();
+                score += subject.getScore();
             }
             list.add(new Label(pupil.name(), score / count));
         }
@@ -34,9 +34,9 @@ public class AnalyzeByMap {
         Map<String, Integer> map = new LinkedHashMap<>();
         for (Pupil pupil : pupils) {
             for (Subject subject : pupil.subjects()) {
-                int score = map.getOrDefault(subject.name(), 0);
-                score += subject.score();
-                map.put(subject.name(), score);
+                int score = map.getOrDefault(subject.getName(), 0);
+                score += subject.getScore();
+                map.put(subject.getName(), score);
             }
         }
         for (Map.Entry<String, Integer> item : map.entrySet()) {
@@ -50,7 +50,7 @@ public class AnalyzeByMap {
         double score = 0D;
         for (Pupil pupil : pupils) {
             for (Subject subject : pupil.subjects()) {
-                score += subject.score();
+                score += subject.getScore();
             }
             list.add(new Label(pupil.name(), score));
             score = 0D;
@@ -64,9 +64,9 @@ public class AnalyzeByMap {
         Map<String, Integer> map = new LinkedHashMap<>();
         for (Pupil pupil : pupils) {
             for (Subject subject : pupil.subjects()) {
-                int score = map.getOrDefault(subject.name(), 0);
-                score += subject.score();
-                map.put(subject.name(), score);
+                int score = map.getOrDefault(subject.getName(), 0);
+                score += subject.getScore();
+                map.put(subject.getName(), score);
             }
         }
         for (Map.Entry<String, Integer> item : map.entrySet()) {
