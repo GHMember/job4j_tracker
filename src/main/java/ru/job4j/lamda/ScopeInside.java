@@ -1,5 +1,6 @@
 package ru.job4j.lamda;
 
+import java.net.Proxy;
 import java.util.function.Supplier;
 
 public class ScopeInside {
@@ -13,6 +14,9 @@ public class ScopeInside {
             );
         }
         System.out.println(total);
+        double a = 4.0D;
+        int b = 2;
+        a = a / b;
     }
 
     private static Integer add(Supplier<Integer> calc) {
