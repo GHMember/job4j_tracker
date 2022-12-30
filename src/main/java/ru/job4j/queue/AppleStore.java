@@ -16,13 +16,13 @@ public class AppleStore {
         for (int i = 1; i < count; i++) {
             queue.poll();
         }
-        return queue.element().name();
+        return queue.poll().name();
     }
 
     public String getLastUpsetCustomer() {
         for (int i = 1; i <= count; i++) {
             queue.poll();
         }
-        return queue.element().name();
+        return queue.poll().name();
     }
 }
