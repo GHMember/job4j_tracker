@@ -1,7 +1,7 @@
 package ru.job4j.tracker;
 
 import org.junit.jupiter.api.Test;
-
+import ru.job4j.tracker.store.SqlTracker;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -11,83 +11,106 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TrackerTest {
     @Test
     public void whenAddNewItemThenTrackerHasSameItem() {
-        Tracker tracker = new Tracker();
-        Item item = new Item();
-        item.setName("test1");
-        tracker.add(item);
-        Item result = tracker.findById(item.getId());
-        assertThat(result.getName(), is(item.getName()));
+        try (Store memTracker = new SqlTracker()) {
+            Item item = new Item();
+            item.setName("test1");
+            memTracker.add(item);
+            Item result = memTracker.findById(item.getId());
+            assertThat(result.getName(), is(item.getName()));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
     public void whenTestFindById() {
-        Tracker tracker = new Tracker();
-        Item bug = new Item("Bug");
-        Item item = tracker.add(bug);
-        Item result = tracker.findById(item.getId());
-        assertThat(result.getName()).isEqualTo(item.getName());
+        try (Store memTracker = new SqlTracker()) {
+            Item bug = new Item("Bug");
+            Item item = memTracker.add(bug);
+            Item result = memTracker.findById(item.getId());
+            assertThat(result.getName()).isEqualTo(item.getName());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
     public void whenTestFindAll() {
-        Tracker tracker = new Tracker();
-        Item first = new Item("First");
-        Item second = new Item("Second");
-        tracker.add(first);
-        tracker.add(second);
-        Item result = tracker.findAll().get(0);
-        assertThat(result.getName()).isEqualTo(first.getName());
+        try (Store memTracker = new SqlTracker()) {
+            ((SqlTracker) memTracker).deleteAll();
+            Item first = new Item("First");
+            Item second = new Item("Second");
+            memTracker.add(first);
+            memTracker.add(second);
+            Item result = memTracker.findAll().get(0);
+            assertThat(result.getName()).isEqualTo(first.getName());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
     public void whenTestFindByNameCheckArrayLength() {
-        Tracker tracker = new Tracker();
-        Item first = new Item("First");
-        Item second = new Item("Second");
-        tracker.add(first);
-        tracker.add(second);
-        tracker.add(new Item("First"));
-        tracker.add(new Item("Second"));
-        tracker.add(new Item("First"));
-        List<Item> result = tracker.findByName(first.getName());
-        assertThat(result.size()).isEqualTo(3);
+        try (Store memTracker = new SqlTracker()) {
+            ((SqlTracker) memTracker).deleteAll();
+            Item first = new Item("First");
+            Item second = new Item("Second");
+            memTracker.add(first);
+            memTracker.add(second);
+            memTracker.add(new Item("First"));
+            memTracker.add(new Item("Second"));
+            memTracker.add(new Item("First"));
+            List<Item> result = memTracker.findByName(first.getName());
+            assertThat(result.size()).isEqualTo(3);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
     public void whenTestFindByNameCheckSecondItemName() {
-        Tracker tracker = new Tracker();
-        Item first = new Item("First");
-        Item second = new Item("Second");
-        tracker.add(first);
-        tracker.add(second);
-        tracker.add(new Item("First"));
-        tracker.add(new Item("Second"));
-        tracker.add(new Item("First"));
-        List<Item> result = tracker.findByName(second.getName());
-        assertThat(result.get(1).getName()).isEqualTo(second.getName());
+        try (Store memTracker = new SqlTracker()) {
+            Item first = new Item("First");
+            Item second = new Item("Second");
+            memTracker.add(first);
+            memTracker.add(second);
+            memTracker.add(new Item("First"));
+            memTracker.add(new Item("Second"));
+            memTracker.add(new Item("First"));
+            List<Item> result = memTracker.findByName(second.getName());
+            assertThat(result.get(1).getName()).isEqualTo(second.getName());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
     public void whenReplace() {
-        Tracker tracker = new Tracker();
-        Item bug = new Item();
-        bug.setName("Bug");
-        tracker.add(bug);
-        int id = bug.getId();
-        Item bugWithDesc = new Item();
-        bugWithDesc.setName("Bug with description");
-        tracker.replace(id, bugWithDesc);
-        assertThat(tracker.findById(id).getName()).isEqualTo("Bug with description");
+        try (Store memTracker = new SqlTracker()) {
+            Item bug = new Item();
+            bug.setName("Bug");
+            memTracker.add(bug);
+            int id = bug.getId();
+            Item bugWithDesc = new Item();
+            bugWithDesc.setName("Bug with description");
+            memTracker.replace(id, bugWithDesc);
+            assertThat(memTracker.findById(id).getName()).isEqualTo("Bug with description");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
     public void whenDelete() {
-        Tracker tracker = new Tracker();
-        Item bug = new Item();
-        bug.setName("Bug");
-        tracker.add(bug);
-        int id = bug.getId();
-        tracker.delete(id);
-        assertThat(tracker.findById(id)).isNull();
+        try (Store memTracker = new SqlTracker()) {
+            Item bug = new Item();
+            bug.setName("Bug");
+            memTracker.add(bug);
+            int id = bug.getId();
+            memTracker.delete(id);
+            assertThat(memTracker.findById(id)).isNull();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
