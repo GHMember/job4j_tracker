@@ -9,33 +9,30 @@ import static org.hamcrest.Matchers.is;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TrackerTest {
+
     @Test
-    public void whenAddNewItemThenTrackerHasSameItem() {
+    public void whenAddNewItemThenTrackerHasSameItem() throws Exception {
         try (Store memTracker = new SqlTracker()) {
             Item item = new Item();
             item.setName("test1");
             memTracker.add(item);
             Item result = memTracker.findById(item.getId());
             assertThat(result.getName(), is(item.getName()));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
         }
     }
 
     @Test
-    public void whenTestFindById() {
+    public void whenTestFindById() throws Exception {
         try (Store memTracker = new SqlTracker()) {
             Item bug = new Item("Bug");
             Item item = memTracker.add(bug);
             Item result = memTracker.findById(item.getId());
             assertThat(result.getName()).isEqualTo(item.getName());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
         }
     }
 
     @Test
-    public void whenTestFindAll() {
+    public void whenTestFindAll() throws Exception {
         try (Store memTracker = new SqlTracker()) {
             ((SqlTracker) memTracker).deleteAll();
             Item first = new Item("First");
@@ -44,13 +41,11 @@ public class TrackerTest {
             memTracker.add(second);
             Item result = memTracker.findAll().get(0);
             assertThat(result.getName()).isEqualTo(first.getName());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
         }
     }
 
     @Test
-    public void whenTestFindByNameCheckArrayLength() {
+    public void whenTestFindByNameCheckArrayLength() throws Exception {
         try (Store memTracker = new SqlTracker()) {
             ((SqlTracker) memTracker).deleteAll();
             Item first = new Item("First");
@@ -62,13 +57,11 @@ public class TrackerTest {
             memTracker.add(new Item("First"));
             List<Item> result = memTracker.findByName(first.getName());
             assertThat(result.size()).isEqualTo(3);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
         }
     }
 
     @Test
-    public void whenTestFindByNameCheckSecondItemName() {
+    public void whenTestFindByNameCheckSecondItemName() throws Exception {
         try (Store memTracker = new SqlTracker()) {
             Item first = new Item("First");
             Item second = new Item("Second");
@@ -79,13 +72,11 @@ public class TrackerTest {
             memTracker.add(new Item("First"));
             List<Item> result = memTracker.findByName(second.getName());
             assertThat(result.get(1).getName()).isEqualTo(second.getName());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
         }
     }
 
     @Test
-    public void whenReplace() {
+    public void whenReplace() throws Exception {
         try (Store memTracker = new SqlTracker()) {
             Item bug = new Item();
             bug.setName("Bug");
@@ -95,13 +86,11 @@ public class TrackerTest {
             bugWithDesc.setName("Bug with description");
             memTracker.replace(id, bugWithDesc);
             assertThat(memTracker.findById(id).getName()).isEqualTo("Bug with description");
-        } catch (Exception e) {
-            throw new RuntimeException(e);
         }
     }
 
     @Test
-    public void whenDelete() {
+    public void whenDelete() throws Exception {
         try (Store memTracker = new SqlTracker()) {
             Item bug = new Item();
             bug.setName("Bug");
@@ -109,8 +98,6 @@ public class TrackerTest {
             int id = bug.getId();
             memTracker.delete(id);
             assertThat(memTracker.findById(id)).isNull();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
         }
     }
 }
