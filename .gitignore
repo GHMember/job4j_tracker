@@ -27,4 +27,7 @@ hs_err_pid*
 
 target
 out
-/src/test/java/ru/job4j/tracker/
+/src/test/java/ru/job4j/tracker/ItemTest
+/src/test/java/ru/job4j/tracker/StartUITest
+/src/test/java/ru/job4j/tracker/TrackerTest
+/src/test/java/ru/job4j/tracker/ValidateInputTest
