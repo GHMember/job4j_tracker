@@ -13,6 +13,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TrackerTest {
 
     @Test
+    public void checkConnection() throws SQLException {
+        SqlTracker tracker;
+        try (SqlTracker trackerSQL = new SqlTracker()) {
+            tracker = trackerSQL;
+            assertThat(trackerSQL.isAvailable(), is(true));
+        }
+        assertThat(tracker.isAvailable(), is(false));
+    }
+
+    @Test
     public void whenAddNewItemThenTrackerHasSameItem() throws SQLException {
         try (SqlTracker memTracker = new SqlTracker()) {
             Item item = new Item();

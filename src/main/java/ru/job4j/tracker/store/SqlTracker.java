@@ -127,4 +127,8 @@ public class SqlTracker implements Store {
             ps.execute();
         }
     }
+
+    public boolean isAvailable() throws SQLException {
+        return this.cn != null && !this.cn.isClosed();
+    }
 }
