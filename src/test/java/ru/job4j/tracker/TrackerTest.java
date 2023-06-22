@@ -14,18 +14,18 @@ public class TrackerTest {
 
     @Test
     public void whenAddNewItemThenTrackerHasSameItem() throws SQLException {
-        Store memTracker = new SqlTracker();
-        Item item = new Item();
-        item.setName("test1");
-        memTracker.add(item);
-        Item result = memTracker.findById(item.getId());
-        assertThat(result.getName(), is(item.getName()));
-
+        try (SqlTracker memTracker = new SqlTracker()) {
+            Item item = new Item();
+            item.setName("test1");
+            memTracker.add(item);
+            Item result = memTracker.findById(item.getId());
+            assertThat(result.getName(), is(item.getName()));
+        }
     }
 
     @Test
-    public void whenTestFindById() throws Exception {
-        try (Store memTracker = new SqlTracker()) {
+    public void whenTestFindById() throws SQLException {
+        try (SqlTracker memTracker = new SqlTracker()) {
             Item bug = new Item("Bug");
             Item item = memTracker.add(bug);
             Item result = memTracker.findById(item.getId());
@@ -34,8 +34,8 @@ public class TrackerTest {
     }
 
     @Test
-    public void whenTestFindAll() throws Exception {
-        try (Store memTracker = new SqlTracker()) {
+    public void whenTestFindAll() throws SQLException {
+        try (SqlTracker memTracker = new SqlTracker()) {
             ((SqlTracker) memTracker).deleteAll();
             Item first = new Item("First");
             Item second = new Item("Second");
@@ -47,8 +47,8 @@ public class TrackerTest {
     }
 
     @Test
-    public void whenTestFindByNameCheckArrayLength() throws Exception {
-        try (Store memTracker = new SqlTracker()) {
+    public void whenTestFindByNameCheckArrayLength() throws SQLException {
+        try (SqlTracker memTracker = new SqlTracker()) {
             ((SqlTracker) memTracker).deleteAll();
             Item first = new Item("First");
             Item second = new Item("Second");
@@ -63,8 +63,8 @@ public class TrackerTest {
     }
 
     @Test
-    public void whenTestFindByNameCheckSecondItemName() throws Exception {
-        try (Store memTracker = new SqlTracker()) {
+    public void whenTestFindByNameCheckSecondItemName() throws SQLException {
+        try (SqlTracker memTracker = new SqlTracker()) {
             Item first = new Item("First");
             Item second = new Item("Second");
             memTracker.add(first);
@@ -78,8 +78,8 @@ public class TrackerTest {
     }
 
     @Test
-    public void whenReplace() throws Exception {
-        try (Store memTracker = new SqlTracker()) {
+    public void whenReplace() throws SQLException {
+        try (SqlTracker memTracker = new SqlTracker()) {
             Item bug = new Item();
             bug.setName("Bug");
             memTracker.add(bug);
@@ -92,8 +92,8 @@ public class TrackerTest {
     }
 
     @Test
-    public void whenDelete() throws Exception {
-        try (Store memTracker = new SqlTracker()) {
+    public void whenDelete() throws SQLException {
+        try (SqlTracker memTracker = new SqlTracker()) {
             Item bug = new Item();
             bug.setName("Bug");
             memTracker.add(bug);
