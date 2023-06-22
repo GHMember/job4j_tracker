@@ -2,6 +2,8 @@ package ru.job4j.tracker;
 
 import org.junit.jupiter.api.Test;
 import ru.job4j.tracker.store.SqlTracker;
+
+import java.sql.SQLException;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -11,14 +13,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TrackerTest {
 
     @Test
-    public void whenAddNewItemThenTrackerHasSameItem() throws Exception {
-        try (Store memTracker = new SqlTracker()) {
-            Item item = new Item();
-            item.setName("test1");
-            memTracker.add(item);
-            Item result = memTracker.findById(item.getId());
-            assertThat(result.getName(), is(item.getName()));
-        }
+    public void whenAddNewItemThenTrackerHasSameItem() throws SQLException {
+        Store memTracker = new SqlTracker();
+        Item item = new Item();
+        item.setName("test1");
+        memTracker.add(item);
+        Item result = memTracker.findById(item.getId());
+        assertThat(result.getName(), is(item.getName()));
+
     }
 
     @Test
