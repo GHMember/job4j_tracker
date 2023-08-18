@@ -13,6 +13,7 @@ public class DirFileCache extends AbstractCache<String, String> {
 
     @Override
     protected String load(String key) {
+        System.out.println("читаю файл");
         StringJoiner value = new StringJoiner(System.lineSeparator());
         try (BufferedReader reader = new BufferedReader(new FileReader(cachingDir + "/" + key))) {
             reader.lines().forEach(value::add);
@@ -23,8 +24,9 @@ public class DirFileCache extends AbstractCache<String, String> {
     }
 
     public String getText(String key) {
-        put(key, load(key));
+        if (get(key) == null) {
+            put(key, load(key));
+        }
         return get(key);
     }
-
 }
